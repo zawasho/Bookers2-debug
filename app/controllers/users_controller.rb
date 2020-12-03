@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
-  before_action :ensure_correct_user, only: [:update]
+  before_action :authenticate_user!
+  before_action :ensure_correct_user, {only: [:edit,:update]}
 
   def show
     @user = User.find(params[:id])
@@ -7,9 +8,20 @@ class UsersController < ApplicationController
     @book = Book.new
   end
 
+  def new
+    @user = User.new(user_params)
+    if @user.save
+      redirect_to user_path(current_user.id)
+    else
+      render "/users/_sign_up"
+    end
+  end
+
   def index
+    @user = current_user
     @users = User.all
     @book = Book.new
+    @books = Book.all
   end
 
   def edit
@@ -17,10 +29,13 @@ class UsersController < ApplicationController
   end
 
   def update
-    if @user.update(user_params)
-      redirect_to users_path(@user), notice: "You have updated user successfully."
+    @user = User.find(params[:id])
+  	@user.update(user_params)
+    if @user.save
+      flash[:notice] = "Profile was successfully updated."
+      redirect_to user_path(@user.id)
     else
-      render "show"
+      render "edit"
     end
   end
 

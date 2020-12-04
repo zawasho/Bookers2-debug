@@ -6,6 +6,7 @@ before_action :ensure_correct_user, only: [:edit, :update, :destroy]
     @user = current_user
     @book = Book.find(params[:id])
     @book_new = Book.new
+    @book_comment = BookComment.new
   end
 
   def index
@@ -49,7 +50,7 @@ before_action :ensure_correct_user, only: [:edit, :update, :destroy]
   private
 
   def book_params
-    params.require(:book).permit(:title, :body)
+    params.require(:book).permit(:title, :body, :user_id)
   end
 
   def ensure_correct_user

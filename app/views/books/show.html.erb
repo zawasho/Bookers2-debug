@@ -30,12 +30,64 @@
 					</td>
 					<td><%= link_to @book.title, book_path(@book) %></td>
 					<td><%= @book.body %></td>
+
+					<% if @book.favorited_by?(current_user) %>
+						<td>
+							<%= link_to book_favorites_path(@book), method: :delete do %>
+							♥<%= @book.favorites.count %>
+							<% end %>
+						</td>
+						<% else %>
+						<td>
+						    <%= link_to book_favorites_path(@book), method: :post do %>
+						    ♡<%= @book.favorites.count %>
+						    <% end %>
+						</td>
+						<% end %>
+
+						<td>
+						<i class="fa fa-comment"></i>
+						<a href="#comments"><%= @book.book_comments.count %>コメント</a>
+						</td>
+						<div class="comment-list bt style-2" id="comment" >
+
 					<% if @book.user.id == current_user.id %>
 					<td><%= link_to "Edit", edit_book_path(@book.id), class: "btn-sm btn-success edit_book_#{@book.id}" %></td>
 					<td><%= link_to "Destroy", book_path(@book.id), method: :delete, data: {confirm: "本当に削除してもよろしいですか？"}, class: "btn-sm btn-danger destroy_book_#{@book.id}" %></td>
 					<% end %>
 				</tr>
 			</table>
+
+			<table class="comment-list">
+				<% @book.book_comments.each do |book_comment| %>
+				
+				<tr class="comment">
+					<div class="comment-body bb">
+					<td>
+					
+					<%= image_tag('no-image-mini.jpg', style: "width: 60px; height: 60px;") %>
+			    <%= book_comment.user.name %>
+			    
+			    </td>
+			        <td><%= book_comment.comment %></td>
+			        <td>
+			        	<span>
+			        		<% if book_comment.user == current_user %>
+			        		<%= link_to "Destroy", book_book_comment_path(book_comment.book_id, book_comment.id), method: :delete, class: "btn-sm btn-danger destroy_book_#{book_comment.id}" %>
+			        		<% end %>
+			        	</span>
+			        </td>
+					</div>
+				</tr>
+				<% end %>
+			</table>
+			<div class="row">
+				<%= form_for [@book, @book_comment] do |f| %>
+
+				    <%= f.text_area :comment, rows:'5', class: "col-xs-10 comment-form" %>
+				    <%= f.submit "送信", class: "btn btn-default btn-sm btn-base-1 pull-left" %>
+				<% end %>
+				</div>
 
 	</div>
 </div>

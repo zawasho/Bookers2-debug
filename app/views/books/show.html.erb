@@ -18,6 +18,8 @@
 	</div>
 
 	<div class="col-xs-9">
+		
+		
 		<h2>Book detail</h2>
 
 		<table class="table">
@@ -59,7 +61,7 @@
 			</table>
 
 			<table class="comment-list">
-				<% @book.book_comments.each do |book_comment| %>
+				<% book.book_comments.each do |book_comment| %>
 				
 				<tr class="comment">
 					<div class="comment-body bb">

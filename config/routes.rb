@@ -7,10 +7,15 @@ Rails.application.routes.draw do
   # /users/sign_out
   devise_for :users
   root to: 'homes#top'
-  resources :users, only: [:show,:index,:edit,:update]
+  get 'home/about' => 'homes#about', as: 'about'
+  
   resources :books do
       resources :book_comments, only: [:create, :destroy]
       resource :favorites, only: [:create, :destroy]
   end
-  get 'home/about' => 'homes#about', as: 'about'
+  resources :users, only: [:show,:index,:edit,:update] do
+  resource :relationships, only: [:create, :destroy]
+  get 'followings' => 'relationships#followings', as: 'followings'
+  get 'followers' => 'relationships#followers', as: 'followers'
+  end
 end

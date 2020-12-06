@@ -13,13 +13,15 @@
     <div class="header">
       <%= render 'layouts/header' %>
     </div>
-    
-      
-    
+
+
+
 
   <div class="body">
     <div class="container">
-      <%= render 'search/search_form' %>
+      <% if user_signed_in? %>
+        <%= render 'search/search_form' %>
+      <% end %>
       <p id="notice"><%= notice %></p>
       <%= yield %>
     </div>

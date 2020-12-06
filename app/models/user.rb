@@ -30,8 +30,7 @@ end
 
 # ユーザーのフォローを外す
 def unfollow(user_id)
-  relationships
-  .find_by(followed_id: user_id).destroy
+  relationships.find_by(followed_id: user_id).destroy
 end
 
   def following?(other_user)

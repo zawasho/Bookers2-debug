@@ -1,0 +1,60 @@
+<div class="container">
+  <div class="row">
+  
+  <% if @model == 'user' %>
+   <h2>Users search for<strong>'<%= @content %>'</strong></h2>
+   <table class="table">
+     <thead>
+         <tr>
+             <th>image</th>
+             <th>name</th>
+             <th colspan ="3"></th>
+             <th colspan ="3"></th>
+             <th colspan ="3"></th>
+         </tr>
+     </thead>
+     
+     <tbody>
+        <% if @datas.any? %>
+          <% @datas.each do |data| %>
+            <tr>
+              <%= link_to user_path(data) do %>
+              <td><%= attachment_image_tag data, :profile_image, class: "inline-box", fallback: "no_image.jpg" %></td>
+              <% end %>
+              <td><%= data.name %></td>
+              <td><%= link_to "Show", user_path(data.id), class: "user_#{data.id}" %></td>
+            </tr>
+          <% end %>
+        <% end %>
+      </tbody>
+    </table>    
+  
+    <% else @model == 'book' %>
+   <h2>Users search for<strong>'<%= @content %>'</strong></h2>
+   <table class="table">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Title</th>
+          <th>Opinion</th>
+          <th colspan="3"></th>
+        </tr>
+      </thead>
+      
+      <tbody>
+        <% if @datas.any? %>
+          <% @datas.each do |data| %>
+            <tr>
+              <td><%= attachment_image_tag(data.user, :profile_image, :fill, 50, 50, fallback: "no-image-mini.jpg") %></td>
+              <td><%= link_to data.title, book_path(data.id), class: "book_#{data.id}" %></td>
+              <td><%= data.body %></td>
+            </tr>
+          <% end %>
+        <% end %>
+      </tbody>
+      
+     </table>
+     <% end %>
+    </div>
+  </div
+ 

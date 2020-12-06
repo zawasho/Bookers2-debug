@@ -10,14 +10,20 @@
   </head>
 
   <body>
-    <%= render 'layouts/header' %>
-
-    <div class="container">
-      <p id="notice"><%= notice %></p>
-
+    <div class="header">
+      <%= render 'layouts/header' %>
     </div>
+    
+      
+    
 
+  <div class="body">
+    <div class="container">
+      <%= render 'search/search_form' %>
+      <p id="notice"><%= notice %></p>
+      <%= yield %>
+    </div>
+  </div>
     <%= render 'layouts/footer' %>
-    <%= yield %>
   </body>
 </html>

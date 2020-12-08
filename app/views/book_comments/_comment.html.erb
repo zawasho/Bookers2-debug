@@ -1,0 +1,23 @@
+<table class="comment-list">
+				<% @book.book_comments.each do |book_comment| %>
+				
+				<tr class="comment">
+					<div class="comment-body bb">
+					<td>
+					
+					<%= image_tag('no-image-mini.jpg', style: "width: 60px; height: 60px;") %>
+			    <%= book_comment.user.name %>
+			    
+			    </td>
+			        <td><%= book_comment.comment %></td>
+			        <td>
+			        	<span>
+			        		<% if book_comment.user == current_user %>
+			        		<%= link_to "Destroy", book_book_comment_path(book_comment.book_id, book_comment.id), method: :delete, class: "btn-sm btn-danger destroy_book_#{book_comment.id}" %>
+			        		<% end %>
+			        	</span>
+			        </td>
+					</div>
+				</tr>
+				<% end %>
+			</table>

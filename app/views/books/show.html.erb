@@ -10,14 +10,14 @@
 	<div class="col-xs-3">
 
 		<h2>User info</h2>
-		<%= render 'users/profile' %>
+		<%= render 'users/profile', user: @book.user %>
 
 		<h2>New book</h2>
-		<%= render 'books/form', book: @book_new %>
+		<%= render 'books/form', book: @book %>
 
 	</div>
 
-	<div class="col-xs-9">
+	<div class="col-xs-8 col-xs-offset-1">
 
 
 		<h2>Book detail</h2>
@@ -37,10 +37,7 @@
 						<%= render 'favorites/favorite-btn', book: @book %>
 					</td>
 
-						<td>
-						<i class="fa fa-comment"></i>
-						<a href="#comments"><%= @book.book_comments.count %>コメント</a>
-						</td>
+						<td id="comments-count">コメント数:<%= @book.book_comments.count %></td>
 						<div class="comment-list bt style-2" id="comment" >
 
 					<% if @book.user.id == current_user.id %>
@@ -49,7 +46,7 @@
 					<% end %>
 				</tr>
 			</table>
-		
+
 			<table class="book_comments">
 				<%= render 'book_comments/comment', book: @book %>
 			</table>
@@ -63,5 +60,6 @@
 		</div>
 
 	</div>
+</div>
 </div>
 </div>

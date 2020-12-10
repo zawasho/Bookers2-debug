@@ -1,6 +1,6 @@
 <div class="container">
 <div class="row">
-	
+
 	<div class="col-xs-3">
 		<h2>User info</h2>
 		<%= render 'users/profile', user: @user %>
@@ -32,13 +32,13 @@
 						</td>
 						<td><%= link_to book.title, book_path(book), class: "book_#{book.id}" %></td>
 						<td><%= book.body %></td>
-					
+
 						<td id="book_<%= @book.id %>_favorite-btn">
 							<%= render 'favorites/favorite-btn', book: book %>
 						</td>
-						
-						<td>
-						<%= link_to "#{book.book_comments.count} コメント", book_path(book.id) %>
+
+						<td class="comments-count">
+						<%= link_to "コメント数:#{book.book_comments.count} ", book_path(book.id) %>
 						</td>
 					</tr>
 				<% end %>

@@ -2,7 +2,7 @@
 
 
 		<%= link_to book_favorites_path(book.id), method: :delete, remote: true do %>
-			♥<%= book.favorites.count %>
+			⭐︎<%= book.favorites.count %>
 		<% end %>
 
 <% else %>
